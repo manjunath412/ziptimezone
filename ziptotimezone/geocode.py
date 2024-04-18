@@ -1,4 +1,5 @@
 import pgeocode
+import pandas as pd
 
 def get_lat_long_for_zip(zip_code, country='US'):
     """
@@ -14,10 +15,16 @@ def get_lat_long_for_zip(zip_code, country='US'):
     Raises:
         ValueError: If the zip_code is not recognized.
     """
+
+    if not isinstance(zip_code, str) or zip_code.strip() == '':
+        # Return None if the zip_code is not a string or is an empty string.
+        return None, None
+    
     nomi = pgeocode.Nominatim(country)
     location = nomi.query_postal_code(zip_code)
     
-    if location is not None and not location.latitude is None and not location.longitude is None:
+    if location is not None and not pd.isna(location.latitude) and not pd.isna(location.longitude):
         return location.latitude, location.longitude
     else:
-        raise ValueError(f"ZIP code {zip_code} not recognized.")
+        #raise ValueError(f"ZIP code {zip_code} not recognized.")
+        return None, None
