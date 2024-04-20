@@ -20,7 +20,7 @@ python:
 
 # Format for your documentation, typically html
 formats:
-  - html
+  - htmlzip
 
 # Use sphinx builder
 build:
