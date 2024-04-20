@@ -9,7 +9,7 @@ sphinx:
 
 # Define the Python version and the install method
 python:
-  version: 3.8  # Specify the Python version
+  version: ">=3.9, <4.0"  # Specify the Python version
   install:
     - requirements: docs/requirements.txt  # Path to requirements file
     - method: pip
