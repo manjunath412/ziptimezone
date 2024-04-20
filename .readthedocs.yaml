@@ -1,40 +1,35 @@
+# Read the Docs configuration file for Sphinx projects
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
 
-# Use this file to configure your Read the Docs build
-
+# Required
 version: 2
 
-# Build documentation in the docs/ directory with Sphinx
-sphinx:
-  configuration: docs/source/conf.py  # Path to the conf.py file
-
-# Define the Python version and the install method
-python:
-  version: ">=3.9, <4.0"  # Specify the Python version
-  install:
-    - requirements: docs/requirements.txt  # Path to requirements file
-    - method: pip
-
-# Optionally set up a conda environment if your project needs it
-# conda:
-#   file: environment.yml
-
-# Format for your documentation, typically html
-formats:
-  - htmlzip
-
-# Use sphinx builder
+# Set the OS, Python version and other tools you might need
 build:
-  image: latest  # Use the latest image for the build environment
-
-# Declare any submodules if your project has them
-submodules:
-  include: all   # Include all submodules
-  recursive: true
-
-# You can specify commands that run before the build
-build:
-  os: "ubuntu-20.04"
+  os: ubuntu-22.04
   tools:
-    python: "3.9"
-  commands:
-      - pip install -r requirements.txt
+    python: ">=3.9"
+    # You can also specify other tool versions:
+    # nodejs: "20"
+    # rust: "1.70"
+    # golang: "1.20"
+
+# Build documentation in the "docs/" directory with Sphinx
+sphinx:
+  configuration: docs/conf.py
+  # You can configure Sphinx to use a different builder, for instance use the dirhtml builder for simpler URLs
+  # builder: "dirhtml"
+  # Fail on all warnings to avoid broken references
+  # fail_on_warning: true
+
+# Optionally build your docs in additional formats such as PDF and ePub
+  formats:
+    - htmlzip
+#   - epub
+
+# Optional but recommended, declare the Python requirements required
+# to build your documentation
+# See https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
+ python:
+   install:
+    - requirements: docs/requirements.txt
