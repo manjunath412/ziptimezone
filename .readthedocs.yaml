@@ -1,1 +1,41 @@
 
+# Use this file to configure your Read the Docs build
+
+version: 0.10.9
+
+# Build documentation in the docs/ directory with Sphinx
+sphinx:
+  configuration: docs/source/conf.py  # Path to the conf.py file
+
+# Define the Python version and the install method
+python:
+  version: 3.8  # Specify the Python version
+  install:
+    - requirements: docs/requirements.txt  # Path to requirements file
+    - method: pip
+
+# Optionally set up a conda environment if your project needs it
+# conda:
+#   file: environment.yml
+
+# Format for your documentation, typically html
+formats:
+  - html
+
+# Use sphinx builder
+build:
+  image: latest  # Use the latest image for the build environment
+
+# Declare any submodules if your project has them
+submodules:
+  include: all   # Include all submodules
+  recursive: true
+
+# You can specify commands that run before the build
+build:
+  os: "ubuntu-20.04"
+  tools:
+    python: "3.8"
+  commands:
+    prebuild: |
+      pip install -r requirements.txt
