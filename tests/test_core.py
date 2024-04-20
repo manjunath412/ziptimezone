@@ -4,6 +4,7 @@ from ziptimezone.core import get_timezone_by_zip
 from ziptimezone.mappings import map_timezone_to_region
 from ziptimezone.globals import get_loaded_zip_data
 
+#need to come back with more documentation
 class TestTimeZoneFinder(unittest.TestCase):
     @patch('ziptimezone.core.get_loaded_zip_data')
     @patch('ziptimezone.core.map_timezone_to_region')
