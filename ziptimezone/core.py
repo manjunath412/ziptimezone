@@ -62,13 +62,10 @@ def get_lat_long_for_zip(zip_code, country='US'):
     
     zip_data = load_zip_data()
     location = zip_data.get(zip_code)
-    #nomi = pgeocode.Nominatim(country)
-    #location = nomi.query_postal_code(zip_code)
     
-    if location is not None: #and not pd.isna(location.latitude) and not pd.isna(location.longitude):
-        return location.latitude, location.longitude
+    if location is not None and location['latitude'] is not None and location['longitude'] is not None: #pd.isna(location.latitude) and not pd.isna(location.longitude):
+        return location['latitude'], location['longitude']
     else:
-        #raise ValueError(f"ZIP code {zip_code} not recognized.")
         return None, None
     
 def get_timezone_by_zip(zip_code):
@@ -88,16 +85,14 @@ def get_timezone_by_zip(zip_code):
     Raises:
         ValueError: If no geographic coordinates can be determined for the given ZIP code.
     """
-    #zip_data = load_zip_data()
-    #location = zip_data.get(zip_code)
-    location = get_lat_long_for_zip(zip_code)
-    if location and location['latitude'] and location['longitude']:
-        latitude, longitude = float(location['latitude']), float(location['longitude'])
-        tf = TimezoneFinder()
-        timezone = tf.timezone_at(lat=latitude, lng=longitude)
+    latitude, longitude = get_lat_long_for_zip(zip_code)
+    if latitude and longitude:
+        tf = TimezoneFinder(in_memory=True)
+        timezone = tf.timezone_at(lat=float(latitude), lng=float(longitude))
         if timezone:
             return map_timezone_to_region(timezone)
         else:
             return 'Unknown'
     else:
-        raise ValueError(f"No valid geographic coordinates found for ZIP code {zip_code}.")
+        #raise ValueError(f"No valid geographic coordinates found for ZIP code {zip_code}.")
+        return f"No valid geographic coordinates for ZIP Code {zip_code} in US"
