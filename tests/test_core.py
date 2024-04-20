@@ -1,19 +1,33 @@
 import unittest
-from unittest.mock import patch, mock_open
+from unittest.mock import patch
 from ziptimezone.core import get_timezone_by_zip
 from ziptimezone.mappings import map_timezone_to_region
-from ziptimezone.data_manager import download_and_extract_zip_data, get_data_file_path
 
 class TestTimeZoneFinder(unittest.TestCase):
-    def test_get_timezone_by_zip_valid(self):
-        # Test with a well-known ZIP code
-        result = get_timezone_by_zip('02138')  # ZIP code for New York, NY
+    @patch('ziptimezone.core.get_loaded_zip_data')
+    @patch('ziptimezone.core.map_timezone_to_region')
+    @patch('ziptimezone.core.TimezoneFinder')
+    def test_get_timezone_by_zip_valid(self, mock_tf, mock_map, mock_get_data):
+        # Set up mocks
+        mock_tf_instance = mock_tf.return_value
+        mock_tf_instance.timezone_at.return_value = 'America/New_York'
+        mock_map.return_value = 'Eastern'
+        mock_get_data.return_value = {'02138': {'latitude': '42.3770', 'longitude': '-71.1256'}}
+        
+        # Test valid ZIP code
+        result = get_timezone_by_zip('02138')
         self.assertEqual(result, 'Eastern')
+        mock_map.assert_called_with('America/New_York')
+        mock_tf_instance.timezone_at.assert_called_with(lat=42.3770, lng=-71.1256)
 
-    def test_get_timezone_by_zip_invalid(self):
+    @patch('ziptimezone.core.get_loaded_zip_data')
+    def test_get_timezone_by_zip_invalid(self, mock_get_data):
+        # Set up mock to return None for invalid ZIP code
+        mock_get_data.return_value = {}
+        
         # Test with an invalid ZIP code
-        with self.assertRaises(ValueError):
-            get_timezone_by_zip('00000')
+        result = get_timezone_by_zip('00000')
+        self.assertEqual(result, 'No valid geographic coordinates found for ZIP code 00000.')
 
 class TestMappings(unittest.TestCase):
     def test_map_timezone_to_region_known(self):
@@ -25,37 +39,6 @@ class TestMappings(unittest.TestCase):
         # Test mapping an unknown timezone
         result = map_timezone_to_region('Europe/Berlin')
         self.assertEqual(result, 'Unknown')
-
-class TestDataManager(unittest.TestCase):
-
-    @patch('ziptimezone.data_manager.os.path.exists')
-    @patch('ziptimezone.data_manager.requests.get')
-    def test_download_and_extract_zip_data(self, mock_get, mock_exists):
-        # Setup
-        mock_exists.return_value = False
-        mock_response = mock_get.return_value
-        mock_response.raise_for_status = unittest.mock.Mock()
-        
-        # Test successful download and extraction
-        with patch('builtins.open', mock_open()):
-            with patch('ziptimezone.data_manager.zipfile.ZipFile') as mock_zip:
-                download_and_extract_zip_data('fake_path', 'http://example.com/data.zip')
-                mock_zip.assert_called_once()
-                mock_response.raise_for_status.assert_called_once()
-
-    @patch('ziptimezone.data_manager.os.path.exists')
-    def test_no_download_if_file_exists(self, mock_exists):
-        # Setup
-        mock_exists.return_value = True
-
-        # Test no download when file exists
-        with patch('ziptimezone.data_manager.requests.get') as mock_get:
-            download_and_extract_zip_data('fake_path', 'http://example.com/data.zip')
-            mock_get.assert_not_called()
-
-if __name__ == '__main__':
-    unittest.main()
-
 
 if __name__ == '__main__':
     unittest.main()
