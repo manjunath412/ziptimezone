@@ -10,7 +10,10 @@ Welcome to ziptimezone's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   core
+   globals
+   data_manager
+   mappings
 
 Indices and tables
 ==================
