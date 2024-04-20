@@ -1,7 +1,7 @@
 
 # Use this file to configure your Read the Docs build
 
-version: 0.10.9
+version: 2
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
