@@ -1,7 +1,7 @@
-import pgeocode
-import pandas as pd
+#import pgeocode
+#import pandas as pd
 
-def get_lat_long_for_zip(zip_code, country='US'):
+#def get_lat_long_for_zip(zip_code, country='US'):
     """
     Retrieve the latitude and longitude for a given ZIP code.
 
@@ -15,7 +15,7 @@ def get_lat_long_for_zip(zip_code, country='US'):
     Raises:
         ValueError: If the zip_code is not recognized.
     """
-
+    '''
     if not isinstance(zip_code, str) or zip_code.strip() == '':
         # Return None if the zip_code is not a string or is an empty string.
         return None, None
@@ -28,3 +28,5 @@ def get_lat_long_for_zip(zip_code, country='US'):
     else:
         #raise ValueError(f"ZIP code {zip_code} not recognized.")
         return None, None
+    '''
+#    pass
