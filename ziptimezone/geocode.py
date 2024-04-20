@@ -1,3 +1,4 @@
+'''
 #import pgeocode
 #import pandas as pd
 
@@ -15,7 +16,6 @@
     Raises:
         ValueError: If the zip_code is not recognized.
     """
-    '''
     if not isinstance(zip_code, str) or zip_code.strip() == '':
         # Return None if the zip_code is not a string or is an empty string.
         return None, None
@@ -28,5 +28,5 @@
     else:
         #raise ValueError(f"ZIP code {zip_code} not recognized.")
         return None, None
-    '''
-#    pass
+    pass
+'''
