@@ -1,5 +1,5 @@
-core module
-===============
+batch_processor module
+=======================
 
 .. automodule:: ziptimezone.batch_processor
    :members:
