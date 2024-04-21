@@ -9,6 +9,7 @@
 import os
 import sys
 import ziptimezone
+import sphinx_rtd_theme
 
 sys.path.insert(0, os.path.abspath("../../ziptimezone"))
 
@@ -30,5 +31,10 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "alabaster"
+html_theme = "sphinx_rtd_theme"  # "alabaster"
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
 html_static_path = ["_static"]
+html_css_files = [
+    "custom.css",
+]

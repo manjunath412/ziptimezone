@@ -2,7 +2,7 @@
 name = "ziptimezone"
 version = "0.10.10"
 description = "A package to convert ZIP codes to time zones and get geographic coordinates."
-readme = "README.md"
+readme = "README.rst"
 authors = ["Manjunath Bettadapura <manjunathbettadapura412@gmail.com>"]
 license = "MIT"
 

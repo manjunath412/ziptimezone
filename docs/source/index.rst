@@ -10,6 +10,7 @@ Welcome to ziptimezone's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   0_getting_started
    core
    globals
    data_manager

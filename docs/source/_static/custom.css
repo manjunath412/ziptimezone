@@ -1,0 +1,6 @@
+.wy-nav-content {
+    max-width: 1200px;  /* Increase the width of the content area */
+}
+.wy-nav-side {
+    width: 300px;  /* Increase the sidebar width */
+}

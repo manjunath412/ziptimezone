@@ -1,5 +1,5 @@
 data_manager module
-===============
+====================
 
 .. automodule:: ziptimezone.data_manager
    :members:

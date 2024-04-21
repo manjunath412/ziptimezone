@@ -25,7 +25,9 @@ timezonefinder
     :target: https://github.com/psf/black
 
 
-This is a python package for looking up the corresponding timezone for given coordinates on earth entirely offline.
+This is a python package with US Zip Code convenience functions such as those listed in the examples below. 
+It uses the geonames data, coupled with the timezonefinder package. It uses a mapping of the popular 
+timezone regions in US, and returns the outputs accordingly.   
 
 
 Quick Guide:
