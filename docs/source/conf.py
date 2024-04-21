@@ -9,33 +9,26 @@
 import os
 import sys
 import ziptimezone
-#from gendocs import Generator
 
-sys.path.insert(0, os.path.abspath('../../ziptimezone'))
-#Generator().DocumentPackages(ziptimezone)
+sys.path.insert(0, os.path.abspath("../../ziptimezone"))
 
 
-project = 'ziptimezone'
-copyright = '2024, Manjunath Bettadapura'
-author = 'Manjunath Bettadapura'
-release = '0.10.9'
+project = "ziptimezone"
+copyright = "2024, Manjunath Bettadapura"
+author = "Manjunath Bettadapura"
+release = "0.10.9"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon'
-]
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.viewcode", "sphinx.ext.napoleon"]
 
-templates_path = ['_templates']
+templates_path = ["_templates"]
 exclude_patterns = []
-
 
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
-html_static_path = ['_static']
+html_theme = "alabaster"
+html_static_path = ["_static"]

@@ -13,6 +13,7 @@ Welcome to ziptimezone's documentation!
    core
    globals
    data_manager
+   batch_processor
    mappings
 
 Indices and tables

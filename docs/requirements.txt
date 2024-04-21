@@ -1,11 +1,14 @@
 alabaster==0.7.16
 Babel==2.14.0
+black==24.4.0
 build==1.2.1
 CacheControl==0.14.0
 certifi==2024.2.2
 cffi==1.16.0
+cfgv==3.4.0
 charset-normalizer==3.3.2
 cleo==2.1.0
+click==8.1.7
 colorama==0.4.6
 crashtest==0.4.1
 distlib==0.3.8
@@ -14,6 +17,7 @@ dulwich==0.21.7
 fastjsonschema==2.19.1
 filelock==3.13.4
 h3==3.7.7
+identify==2.5.36
 idna==3.7
 imagesize==1.4.1
 importlib_metadata==7.1.0
@@ -24,15 +28,19 @@ keyring==24.3.1
 MarkupSafe==2.1.5
 more-itertools==10.2.0
 msgpack==1.0.8
+mypy-extensions==1.0.0
+nodeenv==1.8.0
 numpy==1.26.4
 packaging==24.0
 pandas==2.2.2
+pathspec==0.12.1
 pexpect==4.9.0
 pkginfo==1.10.0
 platformdirs==4.2.0
 poetry==1.8.2
 poetry-core==1.9.0
 poetry-plugin-export==1.7.1
+pre-commit==3.7.0
 properties==0.6.1
 ptyprocess==0.7.0
 pycparser==2.22
@@ -41,6 +49,7 @@ pyproject_hooks==1.0.0
 python-dateutil==2.9.0.post0
 pytz==2024.1
 pywin32-ctypes==0.2.2
+PyYAML==6.0.1
 rapidfuzz==3.8.1
 requests==2.31.0
 requests-toolbelt==1.0.0
@@ -61,4 +70,4 @@ tzdata==2024.1
 urllib3==2.2.1
 virtualenv==20.25.3
 zipp==3.18.1
--e git+https://github.com/manjunath412/ziptimezone.git@ae23afba4dad023a74d0725cab247204cd5607a2#egg=ziptimezone
+-e git+https://github.com/manjunath412/ziptimezone.git@d6bf23b7018885b1bbce010c7fcf6247cd6e34e6#egg=ziptimezone
