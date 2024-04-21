@@ -72,4 +72,4 @@ tzdata==2024.1
 urllib3==2.2.1
 virtualenv==20.25.3
 zipp==3.18.1
--e git+https://github.com/manjunath412/ziptimezone.git@1296396216b149e0e922976c1d48c3d5ff0b012c#egg=ziptimezone
+-e git+https://github.com/manjunath412/ziptimezone.git@3d92c775c29a1915fedd02a486483237ac6a6fc0#egg=ziptimezone

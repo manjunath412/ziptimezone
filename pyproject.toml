@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ziptimezone"
-version = "0.10.10"
+version = "0.10.11"
 description = "A package to convert ZIP codes to time zones and get geographic coordinates."
 readme = "README.rst"
 authors = ["Manjunath Bettadapura <manjunathbettadapura412@gmail.com>"]
@@ -9,9 +9,8 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = ">=3.9, <4.0"
 requests = "^2.31.0"
-#pgeocode = "^0.5.0"
-timezonefinder = ">=6.1.5, 6.5.0"
-pandas = ">=1.3.3, 2.2.2"
+timezonefinder = ">=6.1.5, <=6.5.0"
+pandas = ">=1.3.3, <=2.2.2"
 
 [tool.poetry.dev-dependencies]
 
