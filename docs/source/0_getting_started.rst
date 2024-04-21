@@ -9,7 +9,6 @@ Installation
 
 
 .. code-block:: python
-    :class: console
 
     pip install zptimezone
 
@@ -30,7 +29,6 @@ Basic Usage
 
 
 .. code-block:: python
-    :class: console
 
     import ziptimezone as zpt
 
