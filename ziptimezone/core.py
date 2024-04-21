@@ -4,7 +4,8 @@ from timezonefinder import TimezoneFinder
 from .globals import get_loaded_zip_data
 from .mappings import map_timezone_to_region
 
-def get_lat_long_for_zip(zip_code, country='US'):
+
+def get_lat_long_for_zip(zip_code, country="US"):
     """
     Retrieve the latitude and longitude for a given ZIP code.
 
@@ -20,11 +21,14 @@ def get_lat_long_for_zip(zip_code, country='US'):
     """
     zip_data = get_loaded_zip_data()
     location = zip_data.get(zip_code)
-    
-    if location and location['latitude'] and location['longitude']:
-        return float(location['latitude']), float(location['longitude'])
+
+    if location and location["latitude"] and location["longitude"]:
+        return float(location["latitude"]), float(location["longitude"])
     else:
-        raise ValueError(f"No valid geographic coordinates found for ZIP code {zip_code}.")
+        raise ValueError(
+            f"No valid geographic coordinates found for ZIP code {zip_code}."
+        )
+
 
 @lru_cache(maxsize=100)
 def get_timezone_by_zip(zip_code):
@@ -42,6 +46,6 @@ def get_timezone_by_zip(zip_code):
         latitude, longitude = get_lat_long_for_zip(zip_code)
         tf = TimezoneFinder(in_memory=True)
         timezone = tf.timezone_at(lat=float(latitude), lng=float(longitude))
-        return map_timezone_to_region(timezone) if timezone else 'Unknown'
+        return map_timezone_to_region(timezone) if timezone else "Unknown"
     except ValueError as e:
         return str(e)

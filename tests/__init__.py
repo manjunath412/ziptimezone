@@ -22,4 +22,4 @@ from .core import get_timezone_by_zip
 from .mappings import map_timezone_to_region
 from .geocode import get_lat_long_for_zip
 
-__all__ = ['get_timezone_by_zip', 'map_timezone_to_region', 'get_lat_long_for_zip']
+__all__ = ["get_timezone_by_zip", "map_timezone_to_region", "get_lat_long_for_zip"]
