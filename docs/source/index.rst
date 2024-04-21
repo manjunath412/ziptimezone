@@ -12,9 +12,9 @@ Welcome to ziptimezone's documentation!
 
    0_getting_started
    core
-   globals
    data_manager
    batch_processor
+   globals
    mappings
 
 Indices and tables

@@ -4,3 +4,14 @@
 .wy-nav-side {
     width: 300px;  /* Increase the sidebar width */
 }
+
+.console {
+    background-color: #ffffcc; /* Light yellow background */
+    color: #333333; /* Dark text color for contrast */
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace; /* Monospaced font for code */
+    padding: 0.5em;
+    border-left: 3px solid #f0ad4e; /* Thicker left border for emphasis */
+    margin: 1em 0; /* Space before and after the block */
+    overflow-x: auto; /* Handle long lines */
+  }
+  
