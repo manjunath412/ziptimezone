@@ -15,7 +15,6 @@ Welcome to ziptimezone's documentation!
    data_manager
    batch_processor
    globals
-   mappings
 
 Indices and tables
 ==================

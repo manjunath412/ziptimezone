@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ziptimezone"
-version = "0.10.11"
+version = "1.0.0"
 description = "A package to convert ZIP codes to time zones and get geographic coordinates."
 readme = "README.rst"
 authors = ["Manjunath Bettadapura <manjunathbettadapura412@gmail.com>"]

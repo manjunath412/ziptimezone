@@ -4,3 +4,12 @@ repos:
     hooks:
       - id: black
         language_version: python3.11 
+
+  - repo: local
+    hooks:
+      - id: unittest
+        name: unittest
+        entry: python run_tests.py
+        language: system
+        pass_filenames: false
+        always_run: true
