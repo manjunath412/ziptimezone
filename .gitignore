@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 data/
+ziptime_data/
 
 # C extensions
 *.so

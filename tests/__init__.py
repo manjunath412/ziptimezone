@@ -18,8 +18,13 @@ timezone = get_timezone_by_zip('85260')
 latitude, longitude = get_lat_long_for_zip('02138')
 """
 
-from .core import get_timezone_by_zip
-from .mappings import map_timezone_to_region
-from .geocode import get_lat_long_for_zip
+from ziptimezone.batch_processor import get_timezone_for_many_zips
+from ziptimezone.core import get_timezone_by_zip, get_lat_long_for_zip
+from ziptimezone.mappings import map_timezone_to_region
 
-__all__ = ["get_timezone_by_zip", "map_timezone_to_region", "get_lat_long_for_zip"]
+__all__ = [
+    "get_timezone_by_zip",
+    "map_timezone_to_region",
+    "get_lat_long_for_zip",
+    "get_timezone_for_many_zips",
+]

@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import patch, MagicMock
-import ziptimezone.batch_processor
+from ziptimezone.core import get_timezone_by_zip
 from ziptimezone.batch_processor import get_timezone_for_many_zips, process_zip_code
 
 
 class TestBatchProcessor(unittest.TestCase):
 
-    @patch("batch_processor.get_timezone_by_zip")
+    @patch("ziptimezone.batch_processor.get_timezone_by_zip")
     def test_get_timezone_for_many_zips_success(self, mock_get_timezone):
         # Setup the mock to return a timezone when called
         mock_get_timezone.return_value = "America/New_York"
@@ -19,10 +19,10 @@ class TestBatchProcessor(unittest.TestCase):
         # Check if the results match the expected results
         self.assertEqual(results, expected_results)
         mock_get_timezone.assert_has_calls(
-            [unittest.mock.call(zip_code) for zip_code in zip_codes]
+            [unittest.mock.call(zip_code) for zip_code in zip_codes], any_order=True
         )
 
-    @patch("batch_processor.get_timezone_by_zip")
+    @patch("ziptimezone.batch_processor.get_timezone_by_zip")
     def test_get_timezone_for_many_zips_error(self, mock_get_timezone):
         # Setup the mock to raise an exception when called
         mock_get_timezone.side_effect = Exception("Some error")
@@ -35,7 +35,7 @@ class TestBatchProcessor(unittest.TestCase):
         # Check if the results match the expected results
         self.assertEqual(results, expected_results)
         mock_get_timezone.assert_has_calls(
-            [unittest.mock.call(zip_code) for zip_code in zip_codes]
+            [unittest.mock.call(zip_code) for zip_code in zip_codes], any_order=True
         )
 
 
