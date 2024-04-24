@@ -3,6 +3,7 @@ import concurrent.futures
 from .core import get_timezone_by_zip, get_lat_long_for_zip
 import logging
 
+##
 # Setup basic logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -17,6 +18,7 @@ def process_zip_code(zip_code):
         logging.error(f"Error processing ZIP code {zip_code}: {str(e)}")
         return zip_code, None
 
+
 def process_zip_code_lat_long(zip_code):
     """Helper function to process a single ZIP code for latitude and longitude."""
     try:
@@ -24,7 +26,8 @@ def process_zip_code_lat_long(zip_code):
     except Exception as e:
         logging.error(f"Error processing ZIP code {zip_code}: {str(e)}")
         return zip_code, (None, None)
-        
+
+
 def get_timezone_for_many_zips(zip_codes, max_workers=None):
     """
     Processes a list of ZIP codes in parallel using ThreadPoolExecutor,
@@ -57,6 +60,7 @@ def get_timezone_for_many_zips(zip_codes, max_workers=None):
                 results[zip_code] = None
     return results
 
+
 def get_lat_long_for_many_zips(zip_codes, max_workers=None):
     """
     Processes a list of ZIP codes in parallel using ThreadPoolExecutor,
@@ -74,7 +78,10 @@ def get_lat_long_for_many_zips(zip_codes, max_workers=None):
 
     results = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-        future_to_zip = {executor.submit(process_zip_code_lat_long, zip_code): zip_code for zip_code in zip_codes}
+        future_to_zip = {
+            executor.submit(process_zip_code_lat_long, zip_code): zip_code
+            for zip_code in zip_codes
+        }
         for future in concurrent.futures.as_completed(future_to_zip):
             zip_code = future_to_zip[future]
             try:

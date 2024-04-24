@@ -44,7 +44,8 @@ Quick Guide:
     # returns a tuple (42.377, -71.1256)
     zpt.get_lat_long_for_zip('02138')
 
-    # returns 'Eastern' the timezone has been reduced to the more popular zones for United States Regions
+    # returns 'Eastern' the timezone has been reduced to the more popular zones 
+    # for United States Regions
     zpt.get_timezone_by_zip('02138') 
 
     # returns a dictionary, {'02138': 'Eastern', '85260': 'Mountain'}
