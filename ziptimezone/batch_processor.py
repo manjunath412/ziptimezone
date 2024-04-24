@@ -1,6 +1,6 @@
 import os
 import concurrent.futures
-from .core import get_timezone_by_zip
+from .core import get_timezone_by_zip, get_lat_long_for_zip
 import logging
 
 # Setup basic logging
@@ -17,7 +17,14 @@ def process_zip_code(zip_code):
         logging.error(f"Error processing ZIP code {zip_code}: {str(e)}")
         return zip_code, None
 
-
+def process_zip_code_lat_long(zip_code):
+    """Helper function to process a single ZIP code for latitude and longitude."""
+    try:
+        return zip_code, get_lat_long_for_zip(zip_code)
+    except Exception as e:
+        logging.error(f"Error processing ZIP code {zip_code}: {str(e)}")
+        return zip_code, (None, None)
+        
 def get_timezone_for_many_zips(zip_codes, max_workers=None):
     """
     Processes a list of ZIP codes in parallel using ThreadPoolExecutor,
