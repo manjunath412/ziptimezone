@@ -56,3 +56,31 @@ def get_timezone_for_many_zips(zip_codes, max_workers=None):
                 logging.error(f"Exception for ZIP code {zip_code}: {exc}")
                 results[zip_code] = None
     return results
+
+def get_lat_long_for_many_zips(zip_codes, max_workers=None):
+    """
+    Processes a list of ZIP codes in parallel using ThreadPoolExecutor,
+    retrieving latitudes and longitudes for each. The number of workers can be customized.
+
+    Args:
+        zip_codes (list of str): A list of ZIP codes.
+        max_workers (int, optional): Maximum number of threads to use for parallel processing.
+
+    Returns:
+        dict: A dictionary mapping ZIP codes to their corresponding latitudes and longitudes.
+    """
+    if max_workers is None:
+        max_workers = os.cpu_count() * 2
+
+    results = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_zip = {executor.submit(process_zip_code_lat_long, zip_code): zip_code for zip_code in zip_codes}
+        for future in concurrent.futures.as_completed(future_to_zip):
+            zip_code = future_to_zip[future]
+            try:
+                _, lat_long = future.result()
+                results[zip_code] = lat_long
+            except Exception as exc:
+                logging.error(f"Exception for ZIP code {zip_code}: {exc}")
+                results[zip_code] = (None, None)
+    return results
