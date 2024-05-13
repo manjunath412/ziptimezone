@@ -10,7 +10,7 @@ Installation
 
 .. code-block:: python
 
-    pip install zptimezone
+    pip install ziptimezone
 
 Dependencies
 ------------
