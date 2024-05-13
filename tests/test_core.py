@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from ziptimezone.core import get_timezone_by_zip
+from ziptimezone.core import get_timezone_by_zip, calculate_time_difference
 from ziptimezone.mappings import map_timezone_to_region
 from ziptimezone.globals import get_loaded_zip_data
 
@@ -47,6 +47,35 @@ class TestMappings(unittest.TestCase):
         # Test mapping an unknown timezone
         result = map_timezone_to_region("Europe/Berlin")
         self.assertEqual(result, "Unknown")
+
+
+class TestTimeDifferenceCalculator(unittest.TestCase):
+    @patch("ziptimezone.core.get_timezone_by_zip")
+    def test_time_difference_valid(self, mock_get_timezone):
+        # Set up mocks
+        mock_get_timezone.side_effect = ["America/New_York", "America/Los_Angeles"]
+
+        # Test with valid US ZIP codes
+        result = calculate_time_difference("10001", "94101")
+        self.assertIn("hours", result)  # Check if the result contains 'hours'
+
+    @patch("ziptimezone.core.get_timezone_by_zip")
+    def test_time_difference_invalid_zip(self, mock_get_timezone):
+        # Set up mocks to return 'Unknown' for non-US ZIP codes
+        mock_get_timezone.side_effect = ["Unknown", "America/New_York"]
+
+        # Test with a non-US ZIP code
+        result = calculate_time_difference("00000", "10001")
+        self.assertEqual(result, "One or both zip codes are invalid or non-US.")
+
+    @patch("ziptimezone.core.get_timezone_by_zip")
+    def test_time_difference_exception_handling(self, mock_get_timezone):
+        # Set up mocks to raise an exception
+        mock_get_timezone.side_effect = Exception("Unexpected Error")
+
+        # Test error handling
+        result = calculate_time_difference("99999", "88888")
+        self.assertEqual(result, "Unexpected Error")
 
 
 if __name__ == "__main__":
