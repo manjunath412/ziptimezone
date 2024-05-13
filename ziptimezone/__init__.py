@@ -19,7 +19,7 @@ timezone = get_timezone_by_zip('85260')
 latitude, longitude = get_lat_long_for_zip('02138')
 """
 
-from .core import get_timezone_by_zip, get_lat_long_for_zip
+from .core import get_timezone_by_zip, get_lat_long_for_zip, calculate_time_difference
 from .data_manager import refresh_data_if_needed
 from .batch_processor import get_timezone_for_many_zips, get_lat_long_for_many_zips
 

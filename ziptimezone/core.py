@@ -1,7 +1,8 @@
 # core.py
 from functools import lru_cache
-from datetime import datetime
-import pytz
+from datetime import datetime, timezone
+from dateutil.relativedelta import relativedelta
+from pytz import timezone
 from timezonefinder import TimezoneFinder
 from .globals import get_loaded_zip_data
 from .mappings import map_timezone_to_region
@@ -9,35 +10,42 @@ from .mappings import map_timezone_to_region
 
 def calculate_time_difference(zip1, zip2):
     """
-    Calculate the time difference between two given ZIP codes.
+    Calculate the nominal time difference between the time zones of
+    two given ZIP codes.
 
     Parameters:
         zip1 (str): The first ZIP code.
         zip2 (str): The second ZIP code.
 
     Returns:
-        str: A string describing the time difference if both ZIP codes are valid and in the US, otherwise an error message.
+        str: A string describing the nominal time difference in hours
+        between the time zones of the two ZIP codes, if both ZIP codes
+        are valid and in the US, otherwise an error message.
     """
     try:
-        # Retrieve timezones for both zip codes
-        timezone1 = get_timezone_by_zip(zip1)
-        timezone2 = get_timezone_by_zip(zip2)
-
+        timezone1 = get_timezone_without_map_by_zip(zip1)
+        timezone2 = get_timezone_without_map_by_zip(zip2)
         if timezone1 == "Unknown" or timezone2 == "Unknown":
             return "One or both zip codes are invalid or non-US."
 
-        # Convert timezones to pytz timezone objects
-        tz1 = pytz.timezone(timezone1)
-        tz2 = pytz.timezone(timezone2)
+        # Use pytz to get timezone objects
+        tz1 = timezone(timezone1)
+        tz2 = timezone(timezone2)
 
-        # Current time in each timezone
-        now_utc = datetime.utcnow().replace(tzinfo=pytz.utc)
-        time1 = now_utc.astimezone(tz1)
-        time2 = now_utc.astimezone(tz2)
+        utc_now = timezone("UTC").localize(datetime.now())
+        offset1 = utc_now.astimezone(tz1).replace(tzinfo=None)
+        offset2 = utc_now.astimezone(tz2).replace(tzinfo=None)
+        time_diff = relativedelta(offset1, offset2).hours
 
-        # Calculate time difference in hours
-        time_diff = (time1 - time2).total_seconds() / 3600  # Convert seconds to hours
-        return f"Time difference between {zip1} and {zip2} is {time_diff:.2f} hours."
+        if offset1 is None or offset2 is None:
+            return "Failed to determine timezone offsets."
+
+        if time_diff > 0:
+            return f" {zip1} is ahead of {zip2} by {time_diff:.2f} hours."
+        elif time_diff < 0:
+            return f" {zip1} is behind {zip2} by {time_diff:.2f} hours."
+        else:
+            return f" The time difference between {zip1} and {zip2} is {time_diff:.2f} hours."
 
     except Exception as e:
         return str(e)
@@ -85,5 +93,26 @@ def get_timezone_by_zip(zip_code):
         tf = TimezoneFinder(in_memory=True)
         timezone = tf.timezone_at(lat=float(latitude), lng=float(longitude))
         return map_timezone_to_region(timezone) if timezone else "Unknown"
+    except ValueError as e:
+        return str(e)
+
+
+def get_timezone_without_map_by_zip(zip_code):
+    """
+    Retrieves the timezone based on the provided ZIP code using geographic coordinates.
+
+    Parameters:
+        zip_code (str): The ZIP code for which the timezone is requested.
+
+    Returns:
+        str: The timezone string (e.g., 'America/New_York') if found,
+             returns 'Unknown' if the timezone cannot be determined.
+    """
+    try:
+        latitude, longitude = get_lat_long_for_zip(zip_code)
+        tf = TimezoneFinder(in_memory=True)
+        timezone = tf.timezone_at(lat=float(latitude), lng=float(longitude))
+        return timezone if timezone else "Unknown"
+        # return map_timezone_to_region(timezone) if timezone else "Unknown"
     except ValueError as e:
         return str(e)
