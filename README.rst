@@ -51,6 +51,8 @@ Quick Guide:
     # returns a dictionary, {'02138': 'Eastern', '85260': 'Mountain'}
     zpt.get_timezone_for_many_zips(['02138', '85260']) 
 
+    # returns a a string, '02138 is ahead of 72201 by 1.00 hours."}
+    zpt.get_timezone_for_many_zips(['02138', '72201']) 
 
 For more refer to the `Documentation <https://ziptimezone.readthedocs.io/en/latest/>`__.
 
