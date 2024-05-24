@@ -3,6 +3,9 @@ from unittest.mock import patch
 from ziptimezone.core import get_timezone_by_zip, calculate_time_difference
 from ziptimezone.mappings import map_timezone_to_region
 from ziptimezone.globals import get_loaded_zip_data
+from datetime import datetime, timezone
+from dateutil.relativedelta import relativedelta
+from pytz import timezone
 
 
 class TestTimeZoneFinder(unittest.TestCase):
@@ -50,33 +53,39 @@ class TestMappings(unittest.TestCase):
 
 """
 class TestTimeDifferenceCalculator(unittest.TestCase):
-    @patch("ziptimezone.core.get_timezone_by_zip")
-    def test_time_difference_valid(self, mock_get_timezone):
-        # Set up mocks
+
+    @patch("ziptimezone.core.get_timezone_without_map_by_zip")
+    @patch("ziptimezone.core.datetime")
+    @patch("ziptimezone.core.timezone")
+    def test_time_difference_valid(self, mock_timezone, mock_datetime, mock_get_timezone):
+        # Mocking datetime and timezone behavior
         mock_get_timezone.side_effect = ["America/New_York", "America/Los_Angeles"]
+        mock_timezone.side_effect = lambda x: timezone(x)
+        mock_datetime.now.return_value = datetime(2022, 1, 1, 12)  # Fixed time for consistent testing
+        utc = timezone('UTC')
+        mock_datetime.now.return_value = utc.localize(mock_datetime.now.return_value)
 
         # Test with valid US ZIP codes
-        result = calculate_time_difference("10001", "94101")
-        self.assertIn("One or both zip codes are invalid or non-US", result) 
+        result = calculate_time_difference("10001", "94102")
+        self.assertIn("ahead of", result)
 
-    @patch("ziptimezone.core.get_timezone_by_zip")
+    @patch("ziptimezone.core.get_timezone_without_map_by_zip")
     def test_time_difference_invalid_zip(self, mock_get_timezone):
         # Set up mocks to return 'Unknown' for non-US ZIP codes
         mock_get_timezone.side_effect = ["Unknown", "America/New_York"]
 
-        # Test with a non-US ZIP code
+        # Test with one invalid ZIP code
         result = calculate_time_difference("00000", "10001")
         self.assertEqual(result, "One or both zip codes are invalid or non-US.")
 
-    @patch("ziptimezone.core.get_timezone_by_zip")
+    @patch("ziptimezone.core.get_timezone_without_map_by_zip")
     def test_time_difference_exception_handling(self, mock_get_timezone):
-        # Set up mocks to raise an exception
+        # Set up mocks to simulate an exception
         mock_get_timezone.side_effect = Exception("Unexpected Error")
 
         # Test error handling
         result = calculate_time_difference("99999", "88888")
-        self.assertEqual(result, "One or both zip codes are invalid or non-US")
+        self.assertEqual(result, "Unexpected Error")
 """
-
 if __name__ == "__main__":
     unittest.main()

@@ -105,7 +105,7 @@ def get_timezone_without_map_by_zip(zip_code):
         zip_code (str): The ZIP code for which the timezone is requested.
 
     Returns:
-        str: The timezone string (e.g., 'Eastern') if found,
+        str: The timezone string (e.g., 'America/New_York') if found,
              returns 'Unknown' if the timezone cannot be determined.
     """
     try:
