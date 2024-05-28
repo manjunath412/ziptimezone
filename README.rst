@@ -27,7 +27,8 @@ timezonefinder
 
 This is a python package with US Zip Code convenience functions such as those listed in the examples below. 
 It uses the geonames data, coupled with the timezonefinder package. It uses a mapping of the popular 
-timezone regions in US, and returns the outputs accordingly.   
+timezone regions in US, and returns the outputs accordingly. Latest release includes dependency fixes and 
+documentation updates.
 
 
 Quick Guide:
@@ -52,7 +53,7 @@ Quick Guide:
     zpt.get_timezone_for_many_zips(['02138', '85260']) 
 
     # returns a a string, '02138 is ahead of 72201 by 1.00 hours."}
-    zpt.get_timezone_for_many_zips(['02138', '72201']) 
+    zpt.calculate_time_difference(['02138', '72201']) 
 
 For more refer to the `Documentation <https://ziptimezone.readthedocs.io/en/latest/>`__.
 
