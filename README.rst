@@ -1,5 +1,5 @@
 ==============
-timezonefinder
+ziptimezone
 ==============
 
 
