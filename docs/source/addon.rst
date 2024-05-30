@@ -1,4 +1,4 @@
-core module
+addon module
 ===============
 
 .. automodule:: ziptimezone.addon
