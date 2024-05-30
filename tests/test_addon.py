@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 from datetime import datetime
-from ziptimezone.addon import get_sunrise_sunset
+from ziptimezone.addon import get_sunrise_sunset_for_zip
 from ziptimezone.core import get_lat_long_for_zip, get_timezone_without_map_by_zip
 
 
@@ -23,7 +23,7 @@ class TestGetSunriseSunset(unittest.TestCase):
         )
 
         # Calling the function without the date parameter, which should default to today's date
-        result = get_sunrise_sunset(self.zip_code)
+        result = get_sunrise_sunset_for_zip(self.zip_code)
 
         # Check if the dictionary contains the expected keys
         self.assertIn("sunrise_time", result)
@@ -37,7 +37,7 @@ class TestGetSunriseSunset(unittest.TestCase):
         mock_get_timezone.return_value = "America/Los_Angeles"
 
         # Calling the function with a specific date
-        result = get_sunrise_sunset(self.zip_code, self.sample_date)
+        result = get_sunrise_sunset_for_zip(self.zip_code, self.sample_date)
 
         # Validate the results contain correct keys and mock the expected format
         self.assertIn("sunrise_time", result)

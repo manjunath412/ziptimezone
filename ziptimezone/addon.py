@@ -5,7 +5,7 @@ import pytz
 from .core import get_lat_long_for_zip, get_timezone_without_map_by_zip
 
 
-def get_sunrise_sunset(zip_code, date=None):
+def get_sunrise_sunset_for_zip(zip_code, date=None):
     """
     Calculate sunrise and sunset times for a given ZIP code on a specified date, considering DST adjustments.
     If no date is provided, today's date is used.

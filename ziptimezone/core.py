@@ -8,7 +8,7 @@ from .globals import get_loaded_zip_data
 from .mappings import map_timezone_to_region
 
 
-def calculate_time_difference(zip1, zip2):
+def calculate_time_difference_between_zips(zip1, zip2):
     """
     Calculate the nominal time difference between the time zones of
     two given ZIP codes.

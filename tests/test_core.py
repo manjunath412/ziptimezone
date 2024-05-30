@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from ziptimezone.core import get_timezone_by_zip, calculate_time_difference
+from ziptimezone.core import get_timezone_by_zip, calculate_time_difference_between_zips
 from ziptimezone.mappings import map_timezone_to_region
 from ziptimezone.globals import get_loaded_zip_data
 from datetime import datetime, timezone

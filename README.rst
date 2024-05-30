@@ -53,14 +53,14 @@ Quick Guide:
     zpt.get_timezone_for_many_zips(['02138', '85260']) 
 
     # returns a string, '02138 is ahead of 72201 by 1.00 hours."}
-    zpt.calculate_time_difference(['02138', '72201']) 
+    zpt.calculate_time_difference_between_zips(['02138', '72201']) 
 
     # returns a dictionary, for 5/30/24 {'sunrise_time': '05:11:13', 'sunset_time': '20:13:31'}
-    today_sun_times = get_sunrise_sunset("02138")
+    today_sun_times = get_sunrise_sunset_for_zip("02138")
 
     # Get sunrise and sunset times for ZIP code 02138 on July 4, 2024
     # will return {'sunrise_time': '05:13:42', 'sunset_time': '20:24:10'}
-    july4_sun_times = get_sunrise_sunset("02138", datetime(2024, 7, 4).date())
+    july4_sun_times = get_sunrise_sunset_for_zip("02138", datetime(2024, 7, 4).date())
 
 For more refer to the `Documentation <https://ziptimezone.readthedocs.io/en/latest/>`__.
 
