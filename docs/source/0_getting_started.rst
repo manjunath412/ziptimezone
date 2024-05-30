@@ -42,6 +42,6 @@ Basic Usage
     
     zpt.calculate_time_difference(['02138', '72201']) # returns a string, '02138 is ahead of 72201 by 1.00 hours."}
     
-    get_sunrise_sunset("02138") # returns a dictionary, for 5/30/24 {'sunrise_time': '05:11:13', 'sunset_time': '20:13:31'}
+    zpt.get_sunrise_sunset("02138") # returns a dictionary, for 5/30/24 {'sunrise_time': '05:11:13', 'sunset_time': '20:13:31'}
 
-    get_sunrise_sunset("02138", datetime(2024, 7, 4).date()) # returns {'sunrise_time': '05:13:42', 'sunset_time': '20:24:10'}
+    zpt.get_sunrise_sunset("02138", datetime(2024, 7, 4).date()) # returns {'sunrise_time': '05:13:42', 'sunset_time': '20:24:10'}
