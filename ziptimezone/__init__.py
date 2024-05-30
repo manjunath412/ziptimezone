@@ -19,9 +19,15 @@ timezone = get_timezone_by_zip('85260')
 latitude, longitude = get_lat_long_for_zip('02138')
 """
 
-from .core import get_timezone_by_zip, get_lat_long_for_zip, calculate_time_difference
+from .core import (
+    get_timezone_by_zip,
+    get_lat_long_for_zip,
+    calculate_time_difference,
+    get_timezone_without_map_by_zip,
+)
 from .data_manager import refresh_data_if_needed
 from .batch_processor import get_timezone_for_many_zips, get_lat_long_for_many_zips
+from .addon import get_sunrise_sunset
 
 ##from .mappings import map_timezone_to_region
 # from .geocode import get_lat_long_for_zip
@@ -29,8 +35,10 @@ from .batch_processor import get_timezone_for_many_zips, get_lat_long_for_many_z
 __all__ = [
     "get_lat_long_for_zip",
     "get_timezone_by_zip",
+    "get_timezone_without_map_by_zip",
     "calculate_time_difference",
     "refresh_data_if_needed",
     "get_timezone_for_many_zips",
     "get_lat_long_for_many_zips",
+    "get_sunrise_sunset",
 ]
